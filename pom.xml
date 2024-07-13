@@ -7,7 +7,6 @@
     <modules>
         <module>order-service</module>
         <module>common</module>
-        <module>untitled</module>
     </modules>
 
     <parent>
