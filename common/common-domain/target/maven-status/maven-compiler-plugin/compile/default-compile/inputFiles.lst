@@ -1,0 +1,9 @@
+F:\Code\Java\Microservices Clean Architecture, DDD, SAGA, Outbox & Kafka\food-ordering-system\common\common-domain\src\main\java\com\food\ordering\system\valueobject\BaseId.java
+F:\Code\Java\Microservices Clean Architecture, DDD, SAGA, Outbox & Kafka\food-ordering-system\common\common-domain\src\main\java\com\food\ordering\system\valueobject\Money.java
+F:\Code\Java\Microservices Clean Architecture, DDD, SAGA, Outbox & Kafka\food-ordering-system\common\common-domain\src\main\java\com\food\ordering\system\entity\AggregateRoot.java
+F:\Code\Java\Microservices Clean Architecture, DDD, SAGA, Outbox & Kafka\food-ordering-system\common\common-domain\src\main\java\com\food\ordering\system\event\DomainEvent.java
+F:\Code\Java\Microservices Clean Architecture, DDD, SAGA, Outbox & Kafka\food-ordering-system\common\common-domain\src\main\java\com\food\ordering\system\valueobject\ProductId.java
+F:\Code\Java\Microservices Clean Architecture, DDD, SAGA, Outbox & Kafka\food-ordering-system\common\common-domain\src\main\java\com\food\ordering\system\valueobject\RestaurantId.java
+F:\Code\Java\Microservices Clean Architecture, DDD, SAGA, Outbox & Kafka\food-ordering-system\common\common-domain\src\main\java\com\food\ordering\system\entity\BaseEntity.java
+F:\Code\Java\Microservices Clean Architecture, DDD, SAGA, Outbox & Kafka\food-ordering-system\common\common-domain\src\main\java\com\food\ordering\system\valueobject\OrderId.java
+F:\Code\Java\Microservices Clean Architecture, DDD, SAGA, Outbox & Kafka\food-ordering-system\common\common-domain\src\main\java\com\food\ordering\system\valueobject\OrderStatus.java

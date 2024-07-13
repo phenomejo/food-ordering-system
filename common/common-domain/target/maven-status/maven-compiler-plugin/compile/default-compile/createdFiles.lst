@@ -1,0 +1,9 @@
+com\food\ordering\system\entity\AggregateRoot.class
+com\food\ordering\system\valueobject\RestaurantId.class
+com\food\ordering\system\entity\BaseEntity.class
+com\food\ordering\system\valueobject\OrderStatus.class
+com\food\ordering\system\valueobject\BaseId.class
+com\food\ordering\system\valueobject\OrderId.class
+com\food\ordering\system\valueobject\Money.class
+com\food\ordering\system\event\DomainEvent.class
+com\food\ordering\system\valueobject\ProductId.class
