@@ -29,6 +29,7 @@ public class OrderCreateCommandHandler {
     private final CustomerRepository customerRepository;
     private final RestaurantRepository restaurantRepository;
     private final OrderDataMapper orderDataMapper;
+    private final ApplicationDomainEventPublisher applicationDomainEventPublisher;
 
     @Transactional
     public CreateOrderResponse createOrder(CreateOrderCommand createOrderCommand) {
@@ -40,6 +41,8 @@ public class OrderCreateCommandHandler {
 
         Order saveOrder = saveOrder(order);
         log.info("Order is created with id: {}", saveOrder.getId().getValue());
+
+        applicationDomainEventPublisher.publish(orderCreatedEvent);
 
         return orderDataMapper.orderTOCreateOrderResponse(order);
     }
