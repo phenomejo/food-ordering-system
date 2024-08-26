@@ -3,15 +3,16 @@ package com.food.ordering.system.order.service.domain.mapper;
 import com.food.ordering.system.order.service.domain.dto.OrderAddress;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderCommand;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderResponse;
+import com.food.ordering.system.order.service.domain.dto.track.TrackOrderResponse;
 import com.food.ordering.system.valueobject.CustomerId;
 import com.food.ordering.system.valueobject.Money;
 import com.food.ordering.system.valueobject.ProductId;
 import com.food.ordering.system.valueobject.RestaurantId;
-import order.service.domain.entity.Order;
-import order.service.domain.entity.OrderItem;
-import order.service.domain.entity.Product;
-import order.service.domain.entity.Restaurant;
-import order.service.domain.valueobject.StreetAddress;
+import com.food.ordering.system.order.service.domain.entity.Order;
+import com.food.ordering.system.order.service.domain.entity.OrderItem;
+import com.food.ordering.system.order.service.domain.entity.Product;
+import com.food.ordering.system.order.service.domain.entity.Restaurant;
+import com.food.ordering.system.order.service.domain.valueobject.StreetAddress;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -52,10 +53,11 @@ public class OrderDataMapper {
 
     }
 
-    public CreateOrderResponse orderTOCreateOrderResponse(Order order) {
+    public CreateOrderResponse orderTOCreateOrderResponse(Order order, String message) {
         return CreateOrderResponse.builder()
                 .orderTracking(order.getTrackingId().getValue())
                 .orderStatus(order.getOrderStatus())
+                .message(message)
                 .build();
     }
 
@@ -84,4 +86,11 @@ public class OrderDataMapper {
                 .build();
     }
 
+    public TrackOrderResponse orderToTrackOrderResponse(Order order) {
+        return TrackOrderResponse.builder()
+                .orderTrackingId(order.getTrackingId().getValue())
+                .orderStatus(order.getOrderStatus())
+                .failureMessages(order.getFailureMessages())
+                .build();
+    }
 }

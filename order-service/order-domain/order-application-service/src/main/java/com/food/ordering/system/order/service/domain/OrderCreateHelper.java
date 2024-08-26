@@ -7,11 +7,10 @@ import com.food.ordering.system.order.service.domain.ports.output.repository.Ord
 import com.food.ordering.system.order.service.domain.ports.output.repository.RestaurantRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import order.service.domain.OrderDomainService;
-import order.service.domain.entity.Order;
-import order.service.domain.entity.Restaurant;
-import order.service.domain.event.OrderCreatedEvent;
-import order.service.domain.exception.OrderDomainException;
+import com.food.ordering.system.order.service.domain.entity.Order;
+import com.food.ordering.system.order.service.domain.entity.Restaurant;
+import com.food.ordering.system.order.service.domain.event.OrderCreatedEvent;
+import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

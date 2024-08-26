@@ -6,7 +6,7 @@ import com.food.ordering.system.order.service.domain.mapper.OrderDataMapper;
 import com.food.ordering.system.order.service.domain.ports.output.repository.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import order.service.domain.event.OrderCreatedEvent;
+import com.food.ordering.system.order.service.domain.event.OrderCreatedEvent;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -22,7 +22,7 @@ public class OrderCreateCommandHandler {
         OrderCreatedEvent orderCreatedEvent = orderCreateHelper.persistOrder(createOrderCommand);
         log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
         orderCreatedPaymentRequestMessagePublisher.publish(orderCreatedEvent);
-        return orderDataMapper.orderTOCreateOrderResponse(orderCreatedEvent.getOrder());
+        return orderDataMapper.orderTOCreateOrderResponse(orderCreatedEvent.getOrder(), "Order Created Successfully");
     }
 
 }
