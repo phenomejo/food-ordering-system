@@ -9,8 +9,8 @@ import com.food.ordering.system.order.service.domain.ports.input.service.OrderAp
 import com.food.ordering.system.order.service.domain.ports.output.repository.CustomerRepository;
 import com.food.ordering.system.order.service.domain.ports.output.repository.OrderRepository;
 import com.food.ordering.system.order.service.domain.ports.output.repository.RestaurantRepository;
-import com.food.ordering.system.valueobject.OrderId;
-import com.food.ordering.system.valueobject.OrderStatus;
+import com.food.ordering.system.domain.valueobject.OrderId;
+import com.food.ordering.system.domain.valueobject.OrderStatus;
 import com.food.ordering.system.order.service.domain.entity.Customer;
 import com.food.ordering.system.order.service.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.entity.Restaurant;

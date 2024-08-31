@@ -4,9 +4,9 @@ import com.food.ordering.system.order.service.dataaccess.restaurant.entity.Resta
 import com.food.ordering.system.order.service.dataaccess.restaurant.exception.RestaurantDataAccessException;
 import com.food.ordering.system.order.service.domain.entity.Product;
 import com.food.ordering.system.order.service.domain.entity.Restaurant;
-import com.food.ordering.system.valueobject.Money;
-import com.food.ordering.system.valueobject.ProductId;
-import com.food.ordering.system.valueobject.RestaurantId;
+import com.food.ordering.system.domain.valueobject.Money;
+import com.food.ordering.system.domain.valueobject.ProductId;
+import com.food.ordering.system.domain.valueobject.RestaurantId;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.food.ordering.system.order.service.domain.valueobject;
 
-import com.food.ordering.system.valueobject.BaseId;
-import lombok.Builder;
+import com.food.ordering.system.domain.valueobject.BaseId;
 import lombok.experimental.SuperBuilder;
 
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package com.food.ordering.system.order.service.domain.entity;
 
-import com.food.ordering.system.entity.AggregateRoot;
-import com.food.ordering.system.valueobject.CustomerId;
+import com.food.ordering.system.domain.entity.AggregateRoot;
+import com.food.ordering.system.domain.valueobject.CustomerId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
