@@ -7,13 +7,9 @@ import com.food.ordering.system.order.service.domain.ports.input.message.listene
 import com.food.ordering.system.service.messaging.mapper.OrderMessagingDataMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Slf4j
 @AllArgsConstructor
@@ -24,24 +20,31 @@ public class PaymentResponseKafkaListener implements KafkaConsumer<PaymentRespon
     private final OrderMessagingDataMapper orderMessagingDataMapper;
 
     @Override
-    @KafkaListener(id = "${kafka.consumer-config.payment-consumer-group-id}",
+    @KafkaListener(id = "${kafka-consumer-config.payment-consumer-group-id}",
             topics = "${order-service.payment-response-topic-name}")
-    public void receive(@Payload List<PaymentResponseAvroModel> messages,
-                        @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) List<String> keys,
-                        @Header(KafkaHeaders.RECEIVED_PARTITION_ID) List<Integer> partitions,
-                        @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
-        log.info("{} number of payment responses received with keys: {} partitions: {} and offsets: {}",
-                messages.size(), keys.toString(), partitions.toString(), offsets.toString());
+    public void receive(ConsumerRecords<String, PaymentResponseAvroModel> consumerRecords) {
+        log.info("{} number of PaymentResponseAvroModel responses received",
+                consumerRecords.count());
 
-        messages.forEach(paymentResponseAvroModel -> {
+        consumerRecords.forEach(consumerRecord -> {
+            PaymentResponseAvroModel paymentResponseAvroModel = consumerRecord.value();
+            log.info(
+                    "Received PaymentResponseAvroModel: {} with keys {}, partitions {} and offsets {}",
+                    paymentResponseAvroModel, consumerRecord.key(), consumerRecord.partition(),
+                    consumerRecord.offset());
+
             if (PaymentStatus.COMPLETED.equals(paymentResponseAvroModel.getPaymentStatus())) {
-                log.info("Processing successful payment for order id: {}", paymentResponseAvroModel.getOrderId());
-                paymentResponseMessageListener.paymentCompleted(orderMessagingDataMapper
-                        .paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel));
+                log.info("Processing successful payment for order id: {}",
+                        paymentResponseAvroModel.getOrderId());
+                paymentResponseMessageListener
+                        .paymentCompleted(orderMessagingDataMapper.paymentResponseAvroModelToPaymentResponse(
+                                paymentResponseAvroModel));
             } else if (PaymentStatus.CANCELLED.equals(paymentResponseAvroModel.getPaymentStatus())) {
-                log.info("Processing unsuccessful payment for order id: {}", paymentResponseAvroModel.getOrderId());
-                paymentResponseMessageListener.paymentCancelled(orderMessagingDataMapper
-                        .paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel));
+                log.info("Processing unsuccessful payment for order id: {}",
+                        paymentResponseAvroModel.getOrderId());
+                paymentResponseMessageListener
+                        .paymentCancelled(orderMessagingDataMapper.paymentResponseAvroModelToPaymentResponse(
+                                paymentResponseAvroModel));
             }
         });
 

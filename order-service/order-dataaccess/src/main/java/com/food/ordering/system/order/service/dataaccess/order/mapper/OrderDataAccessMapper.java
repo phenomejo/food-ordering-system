@@ -4,7 +4,6 @@ import com.food.ordering.system.domain.valueobject.*;
 import com.food.ordering.system.order.service.dataaccess.order.entity.OrderAddressEntity;
 import com.food.ordering.system.order.service.dataaccess.order.entity.OrderEntity;
 import com.food.ordering.system.order.service.dataaccess.order.entity.OrderItemEntity;
-import com.food.ordering.system.valueobject.*;
 import com.food.ordering.system.order.service.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.entity.OrderItem;
 import com.food.ordering.system.order.service.domain.entity.Product;
@@ -33,6 +32,7 @@ public class OrderDataAccessMapper {
                 .address(deliveryAddressToAddressEntity(order.getDeliveryAddress()))
                 .price(order.getPrice().amount())
                 .items(orderItemsToOrderItemEntities(order.getItems()))
+                .orderStatus(order.getOrderStatus())
                 .failureMessages(Optional.ofNullable(order.getFailureMessages())
                         .map(failure -> String.join(FAILURE_MESSAGE_DELIMITER, failure))
                         .orElse(""))

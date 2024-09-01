@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @AllArgsConstructor
 @Component
-public class PaymentOrderKafkaMessagePublisher implements OrderPaidRestaurantRequestMessagePublisher {
+public class PaymentOrderKafkaMessagePublisher implements
+        OrderPaidRestaurantRequestMessagePublisher {
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;
     private final KafkaProducer<String, RestaurantApprovalRequestAvroModel> kafkaProducer;
-    private final OrderKafkaMessageHelper orderKafkaMessageHelper;
 
     @Override
     public void publish(OrderPaidEvent domainEvent) {
@@ -30,17 +30,14 @@ public class PaymentOrderKafkaMessagePublisher implements OrderPaidRestaurantReq
             restaurantApprovalRequestAvroModel = orderMessagingDataMapper
                     .orderPaidEventToRestaurantApprovalRequestAvroModel(domainEvent);
 
-            kafkaProducer.send(orderServiceConfigData.getRestaurantApprovalRequestTopicName(),
-                    orderId, restaurantApprovalRequestAvroModel,
-                    orderKafkaMessageHelper.getKafkaCallback(
-                            orderServiceConfigData.getRestaurantApprovalRequestTopicName(),
-                            restaurantApprovalRequestAvroModel, orderId,
-                            "RestaurantApprovalRequestAvroModel"));
+            kafkaProducer.send(orderServiceConfigData.getRestaurantApprovalRequestTopicName(), orderId,
+                    restaurantApprovalRequestAvroModel);
 
             log.info("RestaurantApprovalRequestAvroModel sent to kafka for order id: {}",
                     restaurantApprovalRequestAvroModel.getOrderId());
         } catch (Exception e) {
-            log.error("Error while sending RestaurantApprovalRequestAvroModel message to kafka with order id: {} error: {}",
+            log.error(
+                    "Error while sending RestaurantApprovalRequestAvroModel message to kafka with order id: {} error: {}",
                     orderId, e.getMessage());
         }
     }

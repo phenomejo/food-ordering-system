@@ -13,28 +13,24 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @AllArgsConstructor
 @Component
-public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequestMessagePublisher {
+public class CreateOrderKafkaMessagePublisher implements
+        OrderCreatedPaymentRequestMessagePublisher {
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;
     private final KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer;
-    private final OrderKafkaMessageHelper orderKafkaMessageHelper;
 
     @Override
     public void publish(OrderCreatedEvent domainEvent) {
         String orderId = domainEvent.getOrder().getId().getValue().toString();
         log.info("Received OrderCreatedEvent for order id: {}", orderId);
 
-        PaymentRequestAvroModel paymentRequestAvroModel = null;
+        PaymentRequestAvroModel paymentRequestAvroModel;
         try {
             paymentRequestAvroModel = orderMessagingDataMapper
                     .orderCreatedEventToPaymentRequestAvroModel(domainEvent);
 
-            kafkaProducer.send(orderServiceConfigData.getPaymentRequestTopicName(),
-                    orderId, paymentRequestAvroModel,
-                    orderKafkaMessageHelper.getKafkaCallback(
-                            orderServiceConfigData.getPaymentResponseTopicName(), paymentRequestAvroModel,
-                            orderId, "PaymentRequestAvroModel"));
+            kafkaProducer.send(orderServiceConfigData.getPaymentRequestTopicName(), orderId, paymentRequestAvroModel);
 
             log.info("PaymentRequestAvroModel sent to kafka for order id: {}", paymentRequestAvroModel.getOrderId());
         } catch (Exception e) {

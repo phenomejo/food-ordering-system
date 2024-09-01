@@ -2,17 +2,19 @@ package com.food.ordering.system.order.service.domain.entity;
 
 import com.food.ordering.system.domain.entity.AggregateRoot;
 import com.food.ordering.system.domain.valueobject.*;
-import com.food.ordering.system.valueobject.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
 import com.food.ordering.system.order.service.domain.valueobject.OrderItemId;
 import com.food.ordering.system.order.service.domain.valueobject.StreetAddress;
 import com.food.ordering.system.order.service.domain.valueobject.TrackingId;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Data

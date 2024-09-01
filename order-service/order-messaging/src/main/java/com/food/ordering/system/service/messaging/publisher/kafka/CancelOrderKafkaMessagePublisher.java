@@ -13,35 +13,29 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @AllArgsConstructor
 @Component
-public class CancelOrderKafkaMessagePublisher implements OrderCancelledPaymentRequestMessagePublisher {
+public class CancelOrderKafkaMessagePublisher implements
+        OrderCancelledPaymentRequestMessagePublisher {
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;
     private final KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer;
-    private final OrderKafkaMessageHelper orderKafkaMessageHelper;
 
     @Override
     public void publish(OrderCancelledEvent domainEvent) {
-        {
-            String orderId = domainEvent.getOrder().getId().getValue().toString();
-            log.info("Received OrderCancelledEvent for order id: {}", orderId);
+        String orderId = domainEvent.getOrder().getId().getValue().toString();
+        log.info("Received OrderCancelledEvent for order id: {}", orderId);
 
-            PaymentRequestAvroModel paymentRequestAvroModel = null;
-            try {
-                paymentRequestAvroModel = orderMessagingDataMapper
-                        .orderCancelledEventToPaymentRequestAvroModel(domainEvent);
+        PaymentRequestAvroModel paymentRequestAvroModel;
+        try {
+            paymentRequestAvroModel = orderMessagingDataMapper.orderCancelledEventToPaymentRequestAvroModel(
+                    domainEvent);
 
-                kafkaProducer.send(orderServiceConfigData.getPaymentRequestTopicName(),
-                        orderId, paymentRequestAvroModel,
-                        orderKafkaMessageHelper.getKafkaCallback(
-                                orderServiceConfigData.getPaymentResponseTopicName(), paymentRequestAvroModel,
-                                orderId, "PaymentRequestAvroModel"));
+            kafkaProducer.send(orderServiceConfigData.getPaymentRequestTopicName(), orderId, paymentRequestAvroModel);
 
-                log.info("PaymentRequestAvroModel sent to kafka for order id: {}", paymentRequestAvroModel.getOrderId());
-            } catch (Exception e) {
-                log.error("Error while sending PaymentRequestAvroModel message to kafka with order id: {} error: {}",
-                        orderId, e.getMessage());
-            }
+            log.info("PaymentRequestAvroModel sent to kafka for order id: {}", paymentRequestAvroModel.getOrderId());
+        } catch (Exception e) {
+            log.error("Error while sending PaymentRequestAvroModel message to kafka with order id: {} error: {}",
+                    orderId, e.getMessage());
         }
     }
 

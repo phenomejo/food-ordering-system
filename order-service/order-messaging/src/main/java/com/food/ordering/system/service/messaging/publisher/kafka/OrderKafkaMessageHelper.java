@@ -6,6 +6,9 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import java.util.concurrent.CompletableFuture;
+
+@Deprecated
 @Slf4j
 @Component
 public class OrderKafkaMessageHelper {
@@ -15,7 +18,7 @@ public class OrderKafkaMessageHelper {
         return new ListenableFutureCallback<SendResult<String, T>>() {
             @Override
             public void onFailure(Throwable ex) {
-                log.error("Error while sending {} message: {} to Topic: {}",
+                log.error("Error while sending {}m message: {} to Topic: {}",
                         requestAvroModelName, requestAvroModel, topicName, ex);
             }
 
@@ -23,8 +26,8 @@ public class OrderKafkaMessageHelper {
             public void onSuccess(SendResult<String, T> result) {
                 RecordMetadata metadata = result.getRecordMetadata();
                 log.info("Received successful response from kafka for " +
-                                "order id: {} Topic: {} Partition: {}" +
-                                "Offset: {} Timestamp: {}",
+                                "order id: {}, Topic: {}m Partition: {}, " +
+                                "Offset: {}, Timestamp: {}",
                         orderId, metadata.topic(), metadata.partition(),
                         metadata.offset(), metadata.timestamp());
             }

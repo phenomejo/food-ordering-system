@@ -39,13 +39,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 </project>

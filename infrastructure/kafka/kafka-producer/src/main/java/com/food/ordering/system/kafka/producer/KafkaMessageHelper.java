@@ -1,3 +1,4 @@
+/*
 package com.food.ordering.system.kafka.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -58,3 +59,4 @@ public class KafkaMessageHelper {
         };
     }
 }
+*/

@@ -2,9 +2,7 @@ package com.food.ordering.system.order.service.dataaccess.customer.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 import java.util.UUID;
 
 @Getter
